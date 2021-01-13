@@ -1,4 +1,4 @@
-import { Error } from './error';
+import { Cast, Error } from './utils';
 import {
   Zero,
   Natural,
@@ -12,8 +12,9 @@ import { UnwrapResult } from './result_container';
 
 export type Sieve = boolean[];
 
-export type GetInitialSieve<N extends Natural> = UnwrapResult<
-  _GetInitialSieve<Zero, N, []>
+export type GetInitialSieve<N extends Natural> = Cast<
+  UnwrapResult<_GetInitialSieve<Zero, N, []>>,
+  Sieve
 >;
 type _GetInitialSieve<
   I extends Natural,
@@ -86,14 +87,16 @@ type _StepFill<
 export type SieveOfEratosthenes<S extends Sieve> = UnwrapResult<
   _SieveOfEratosthenes<S, NumberToNatural<2>>
 >;
-type _SieveOfEratosthenes<
-  S extends Sieve | unknown, // as unknown
-  N extends Natural
-> = S extends Sieve
+type _SieveOfEratosthenes<S extends Sieve, N extends Natural> = S extends Sieve
   ? NaturalToNumber<N> extends S['length']
     ? S
     : S[NaturalToNumber<N>] extends true
-    ? { _: _SieveOfEratosthenes<StepFill<S, Add<N, N>, N, false>, Succ<N>> }
+    ? {
+        _: _SieveOfEratosthenes<
+          Cast<StepFill<S, Add<N, N>, N, false>, Sieve>,
+          Succ<N>
+        >;
+      }
     : { _: _SieveOfEratosthenes<S, Succ<N>> }
   : Error<'_SieveOfEratosthenes: S is not Sieve'>;
 
@@ -109,3 +112,17 @@ type _SieveToNumbers<
   : S[NaturalToNumber<I>] extends true
   ? { _: _SieveToNumbers<S, [...NUMBERS, NaturalToNumber<I>], Succ<I>> }
   : { _: _SieveToNumbers<S, NUMBERS, Succ<I>> };
+
+export type PrimeNumbers<MAX extends number> = SieveToNumbers<
+  Cast<_PrimeNumbers<MAX>, Sieve>
+>;
+type _PrimeNumbers<MAX extends number> = SieveOfEratosthenes<
+  Cast<__PrimeNumbers<MAX>, Sieve>
+> extends infer A
+  ? A
+  : never;
+type __PrimeNumbers<MAX extends number> = SieveOfEratosthenes<
+  GetInitialSieve<NumberToNatural<MAX>>
+> extends infer A
+  ? A
+  : never;

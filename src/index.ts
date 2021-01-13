@@ -1,12 +1,3 @@
-import {
-  GetInitialSieve,
-  SieveOfEratosthenes,
-  SieveToNumbers,
-} from './eratosthenes';
-import { NumberToNatural } from './natural';
+import { PrimeNumbers } from './eratosthenes';
 
-type PrimeNumbers = SieveToNumbers<
-  SieveOfEratosthenes<GetInitialSieve<NumberToNatural<300>>>
->;
-
-const primes: PrimeNumbers = 'string';
+const primes: PrimeNumbers<300> = 'string';

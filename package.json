@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc --project tsconfig.run.json --noEmit",
+    "start": "tsc --project tsconfig.run.json --noEmit; exit 0",
     "test": "tsc --project tsconfig.test.json --noEmit"
   },
   "keywords": [],

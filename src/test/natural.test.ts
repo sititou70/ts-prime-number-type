@@ -1,5 +1,5 @@
 import { assert, IsExact } from 'conditional-type-checks';
-import { Error } from '../error';
+import { Error } from '../utils';
 import {
   Pred,
   Succ,
@@ -8,7 +8,6 @@ import {
   Add,
   NegativeValue,
   Sub,
-  Mod,
 } from '../natural';
 
 // test data
@@ -87,38 +86,4 @@ assert<
 >(true);
 assert<
   IsExact<Sub<NumberToNatural<100>, NumberToNatural<50>>, NumberToNatural<50>>
->(true);
-
-assert<
-  IsExact<
-    Mod<NumberToNatural<0>, NumberToNatural<0>>,
-    Error<'Mod: zero devided'>
-  >
->(true);
-assert<
-  IsExact<
-    Mod<NumberToNatural<1>, NumberToNatural<0>>,
-    Error<'Mod: zero devided'>
-  >
->(true);
-assert<
-  IsExact<Mod<NumberToNatural<1>, NumberToNatural<5>>, NumberToNatural<1>>
->(true);
-assert<
-  IsExact<Mod<NumberToNatural<1>, NumberToNatural<1>>, NumberToNatural<0>>
->(true);
-assert<
-  IsExact<Mod<NumberToNatural<100>, NumberToNatural<1>>, NumberToNatural<0>>
->(true);
-assert<
-  IsExact<Mod<NumberToNatural<100>, NumberToNatural<3>>, NumberToNatural<1>>
->(true);
-assert<
-  IsExact<Mod<NumberToNatural<100>, NumberToNatural<13>>, NumberToNatural<9>>
->(true);
-assert<
-  IsExact<Mod<NumberToNatural<123>, NumberToNatural<45>>, NumberToNatural<33>>
->(true);
-assert<
-  IsExact<Mod<NumberToNatural<45>, NumberToNatural<123>>, NumberToNatural<45>>
 >(true);

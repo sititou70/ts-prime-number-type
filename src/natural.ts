@@ -1,4 +1,4 @@
-import { Error } from './error';
+import { Cast, Error } from './utils';
 import { UnwrapResult } from './result_container';
 
 export type Natural = 0[];
@@ -15,8 +15,9 @@ export type Pred<N extends Natural | NegativeValue> = N extends NegativeValue
   ? REMAINING
   : never;
 
-export type NumberToNatural<N extends number> = UnwrapResult<
-  _NumberToNatural<Zero, N>
+export type NumberToNatural<N extends number> = Cast<
+  UnwrapResult<_NumberToNatural<Zero, N>>,
+  Natural
 >;
 type _NumberToNatural<
   NATURAL extends Natural,
@@ -37,18 +38,3 @@ export type Sub<N1 extends Natural, N2 extends Natural> = N1 extends [
     ? REMAINING
     : never
   : NegativeValue;
-
-export type Mod<N1 extends Natural, N2 extends Natural> = N2 extends Zero
-  ? Error<'Mod: zero devided'>
-  : UnwrapResult<_Mod<N1, N2, Add<N1, N2>>>;
-type _Mod<
-  N1 extends Natural | NegativeValue,
-  N2 extends Natural,
-  PREVN1 extends Natural
-> = N1 extends Zero
-  ? N1
-  : N1 extends NegativeValue
-  ? PREVN1
-  : N1 extends Natural
-  ? { _: _Mod<Sub<N1, N2>, N2, N1> }
-  : never;

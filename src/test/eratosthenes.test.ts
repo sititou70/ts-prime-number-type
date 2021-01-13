@@ -5,7 +5,7 @@ import {
   SieveToNumbers,
   StepFill,
 } from '../eratosthenes';
-import { Error } from '../error';
+import { Error } from '../utils';
 import { NumberToNatural } from '../natural';
 
 assert<IsExact<GetInitialSieve<NumberToNatural<0>>, []>>(true);

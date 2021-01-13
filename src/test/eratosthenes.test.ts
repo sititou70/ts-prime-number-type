@@ -1,7 +1,6 @@
 import { assert, IsExact } from 'conditional-type-checks';
 import {
   GetInitialSieve,
-  GetPrimeNumbers,
   SieveOfEratosthenes,
   SieveToNumbers,
   StepFill,
@@ -101,5 +100,3 @@ assert<
     [2, 3, 5, 7]
   >
 >(true);
-
-//assert<IsExact<GetPrimeNumbers<30>, [2, 3, 5, 7, 11, 13, 17]>>(true);

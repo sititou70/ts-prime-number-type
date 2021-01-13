@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc --noEmit src/index.ts",
-    "test": "tsc --noEmit src/test/*"
+    "start": "tsc --project tsconfig.run.json --noEmit",
+    "test": "tsc --project tsconfig.test.json --noEmit"
   },
   "keywords": [],
   "author": "",

@@ -107,9 +107,5 @@ type _SieveToNumbers<
 > = NaturalToNumber<I> extends S['length']
   ? NUMBERS
   : S[NaturalToNumber<I>] extends true
-  ? _SieveToNumbers<S, [...NUMBERS, NaturalToNumber<I>], Succ<I>>
-  : _SieveToNumbers<S, NUMBERS, Succ<I>>;
-
-export type GetPrimeNumbers<MAX extends number> = GetInitialSieve<
-  NumberToNatural<MAX>
->;
+  ? { _: _SieveToNumbers<S, [...NUMBERS, NaturalToNumber<I>], Succ<I>> }
+  : { _: _SieveToNumbers<S, NUMBERS, Succ<I>> };

@@ -1,13 +1,5 @@
 import { assert, IsExact } from 'conditional-type-checks';
-import { Error } from '../utils';
-import {
-  Pred,
-  Succ,
-  NumberToNatural,
-  NaturalToNumber,
-  Add,
-  Sub,
-} from '../natural';
+import { Succ, NumberToNatural, NaturalToNumber, Add } from '../natural';
 
 // test data
 type Natural5 = [0, 0, 0, 0, 0];
@@ -31,9 +23,6 @@ type Natural500 = [
 // test
 assert<IsExact<Succ<[]>, [0]>>(true);
 assert<IsExact<Succ<[0]>, [0, 0]>>(true);
-
-assert<IsExact<Pred<[0]>, []>>(true);
-assert<IsExact<Pred<[0, 0]>, [0]>>(true);
 
 assert<IsExact<NumberToNatural<0>, []>>(true);
 assert<IsExact<NumberToNatural<1>, [0]>>(true);
@@ -67,17 +56,4 @@ assert<
 >(true);
 assert<
   IsExact<Add<NumberToNatural<100>, NumberToNatural<50>>, NumberToNatural<150>>
->(true);
-
-assert<
-  IsExact<Sub<NumberToNatural<0>, NumberToNatural<0>>, NumberToNatural<0>>
->(true);
-assert<
-  IsExact<Sub<NumberToNatural<1>, NumberToNatural<0>>, NumberToNatural<1>>
->(true);
-assert<
-  IsExact<Sub<NumberToNatural<3>, NumberToNatural<2>>, NumberToNatural<1>>
->(true);
-assert<
-  IsExact<Sub<NumberToNatural<100>, NumberToNatural<50>>, NumberToNatural<50>>
 >(true);

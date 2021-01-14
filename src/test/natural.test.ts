@@ -6,7 +6,6 @@ import {
   NumberToNatural,
   NaturalToNumber,
   Add,
-  NegativeValue,
   Sub,
 } from '../natural';
 
@@ -33,10 +32,8 @@ type Natural500 = [
 assert<IsExact<Succ<[]>, [0]>>(true);
 assert<IsExact<Succ<[0]>, [0, 0]>>(true);
 
-assert<IsExact<Pred<[]>, NegativeValue>>(true);
 assert<IsExact<Pred<[0]>, []>>(true);
 assert<IsExact<Pred<[0, 0]>, [0]>>(true);
-assert<IsExact<Pred<NegativeValue>, NegativeValue>>(true);
 
 assert<IsExact<NumberToNatural<0>, []>>(true);
 assert<IsExact<NumberToNatural<1>, [0]>>(true);
@@ -75,9 +72,6 @@ assert<
 assert<
   IsExact<Sub<NumberToNatural<0>, NumberToNatural<0>>, NumberToNatural<0>>
 >(true);
-assert<IsExact<Sub<NumberToNatural<0>, NumberToNatural<1>>, NegativeValue>>(
-  true
-);
 assert<
   IsExact<Sub<NumberToNatural<1>, NumberToNatural<0>>, NumberToNatural<1>>
 >(true);

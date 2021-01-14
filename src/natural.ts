@@ -4,13 +4,10 @@ import { UnwrapResult } from './result_container';
 export type Natural = 0[];
 export type Zero = [];
 export type One = [0];
-export type NegativeValue = 'Negative Value';
 
 export type Succ<N extends Natural> = [...N, 0];
-export type Pred<N extends Natural | NegativeValue> = N extends NegativeValue
-  ? NegativeValue
-  : N extends Zero
-  ? NegativeValue
+export type Pred<N extends Natural> = N extends Zero
+  ? Error<'Pred: result is negative value'>
   : N extends [...infer REMAINING, 0]
   ? REMAINING
   : never;
@@ -37,4 +34,4 @@ export type Sub<N1 extends Natural, N2 extends Natural> = N1 extends [
   ? REMAINING extends Natural
     ? REMAINING
     : never
-  : NegativeValue;
+  : Error<'Sub: result is negative value'>;

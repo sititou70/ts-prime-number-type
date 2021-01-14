@@ -1,4 +1,4 @@
-export type ResultContainer = { _: any };
+export type ResultContainer<T> = { _: T };
 
 export type UnwrapResult<CONTAINER> = CONTAINER extends { _: unknown }
   ? UnwrapResult<_UnwrapResult<CONTAINER>>

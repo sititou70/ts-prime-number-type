@@ -13,7 +13,7 @@ import { UnwrapResult } from './result_container';
 export type Sieve = boolean[];
 
 export type GetInitialSieve<N extends Natural> = Cast<
-  UnwrapResult<_GetInitialSieve<Zero, N, []>>,
+  UnwrapResult<_GetInitialSieve<Zero, Succ<N>, []>>,
   Sieve
 >;
 type _GetInitialSieve<

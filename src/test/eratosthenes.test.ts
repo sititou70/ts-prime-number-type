@@ -1,6 +1,7 @@
 import { assert, IsExact } from 'conditional-type-checks';
 import {
   GetInitialSieve,
+  PrimeNumbers,
   SieveOfEratosthenes,
   SieveToNumbers,
   StepFill,
@@ -8,16 +9,18 @@ import {
 import { Error } from '../utils';
 import { NumberToNatural } from '../natural';
 
-assert<IsExact<GetInitialSieve<NumberToNatural<0>>, []>>(true);
-assert<IsExact<GetInitialSieve<NumberToNatural<1>>, [false]>>(true);
-assert<IsExact<GetInitialSieve<NumberToNatural<2>>, [false, false]>>(true);
-assert<IsExact<GetInitialSieve<NumberToNatural<3>>, [false, false, true]>>(
+assert<IsExact<GetInitialSieve<NumberToNatural<0>>, [false]>>(true);
+assert<IsExact<GetInitialSieve<NumberToNatural<1>>, [false, false]>>(true);
+assert<IsExact<GetInitialSieve<NumberToNatural<2>>, [false, false, true]>>(
   true
 );
 assert<
+  IsExact<GetInitialSieve<NumberToNatural<3>>, [false, false, true, true]>
+>(true);
+assert<
   IsExact<
     GetInitialSieve<NumberToNatural<10>>,
-    [false, false, true, true, true, true, true, true, true, true]
+    [false, false, true, true, true, true, true, true, true, true, true]
   >
 >(true);
 
@@ -89,7 +92,8 @@ assert<
       false,
       false,
       false,
-      true
+      true,
+      false
     ]
   >
 >(true);
@@ -100,3 +104,7 @@ assert<
     [2, 3, 5, 7]
   >
 >(true);
+
+assert<IsExact<PrimeNumbers<18>, [2, 3, 5, 7, 11, 13, 17]>>(true);
+assert<IsExact<PrimeNumbers<19>, [2, 3, 5, 7, 11, 13, 17, 19]>>(true);
+assert<IsExact<PrimeNumbers<20>, [2, 3, 5, 7, 11, 13, 17, 19]>>(true);

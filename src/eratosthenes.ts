@@ -57,7 +57,7 @@ export type StepFill<
 type _StepFill<
   ARRAY extends unknown[],
   INDEX extends Natural,
-  NEXT_STEP_INDEX extends Natural,
+  NEXT_FILL_INDEX extends Natural,
   CONSTS extends {
     step: Natural;
     value: unknown;
@@ -66,12 +66,12 @@ type _StepFill<
   }
 > = NaturalToNumber<INDEX> extends CONSTS['array_length']
   ? ARRAY
-  : INDEX extends NEXT_STEP_INDEX
+  : INDEX extends NEXT_FILL_INDEX
   ? {
       _: _StepFill<
         [...ARRAY, CONSTS['value']],
         Succ<INDEX>,
-        Add<NEXT_STEP_INDEX, CONSTS['step']>,
+        Add<NEXT_FILL_INDEX, CONSTS['step']>,
         CONSTS
       >;
     }
@@ -79,7 +79,7 @@ type _StepFill<
       _: _StepFill<
         [...ARRAY, CONSTS['orig_array'][NaturalToNumber<INDEX>]],
         Succ<INDEX>,
-        NEXT_STEP_INDEX,
+        NEXT_FILL_INDEX,
         CONSTS
       >;
     };

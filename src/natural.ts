@@ -1,5 +1,5 @@
 import { Cast } from './utils';
-import { UnwrapResult } from './result_container';
+import { ExtractResult } from './result_container';
 
 export type Natural = 0[];
 export type Zero = [];
@@ -10,7 +10,7 @@ export type Succ<N extends Natural> = [...N, 0];
 export type Add<N1 extends Natural, N2 extends Natural> = [...N1, ...N2];
 
 export type NumberToNatural<N extends number> = Cast<
-  UnwrapResult<_NumberToNatural<Zero, N>>,
+  ExtractResult<_NumberToNatural<Zero, N>>,
   Natural
 >;
 type _NumberToNatural<

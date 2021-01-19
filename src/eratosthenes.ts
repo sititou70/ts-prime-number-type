@@ -8,12 +8,12 @@ import {
   One,
   NumberToNatural,
 } from './natural';
-import { UnwrapResult } from './result_container';
+import { ExtractResult } from './result_container';
 
 export type Sieve = boolean[];
 
 export type GetInitialSieve<N extends Natural> = Cast<
-  UnwrapResult<_GetInitialSieve<Zero, Succ<N>, []>>,
+  ExtractResult<_GetInitialSieve<Zero, Succ<N>, []>>,
   Sieve
 >;
 type _GetInitialSieve<
@@ -41,7 +41,7 @@ export type StepFill<
   VALUE extends unknown
 > = STEP extends Zero
   ? Error<'StepFill: STEP must not be 0'>
-  : UnwrapResult<
+  : ExtractResult<
       _StepFill<
         [],
         Zero,
@@ -84,7 +84,7 @@ type _StepFill<
       >;
     };
 
-export type SieveOfEratosthenes<S extends Sieve> = UnwrapResult<
+export type SieveOfEratosthenes<S extends Sieve> = ExtractResult<
   _SieveOfEratosthenes<S, NumberToNatural<2>>
 >;
 type _SieveOfEratosthenes<S extends Sieve, N extends Natural> = S extends Sieve
@@ -100,7 +100,7 @@ type _SieveOfEratosthenes<S extends Sieve, N extends Natural> = S extends Sieve
     : { _: _SieveOfEratosthenes<S, Succ<N>> }
   : Error<'_SieveOfEratosthenes: S is not Sieve'>;
 
-export type SieveToNumbers<S extends Sieve> = UnwrapResult<
+export type SieveToNumbers<S extends Sieve> = ExtractResult<
   _SieveToNumbers<S, [], Zero>
 >;
 type _SieveToNumbers<

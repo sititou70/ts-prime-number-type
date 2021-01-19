@@ -114,15 +114,12 @@ type _SieveToNumbers<
   : { _: _SieveToNumbers<S, NUMBERS, Succ<I>> };
 
 export type PrimeNumbers<MAX extends number> = SieveToNumbers<
-  Cast<_PrimeNumbers<MAX>, Sieve>
+  Cast<
+    SieveOfEratosthenes<
+      Cast<GetInitialSieve<NumberToNatural<MAX>>, Sieve>
+    > extends infer A
+      ? A
+      : never,
+    Sieve
+  >
 >;
-type _PrimeNumbers<MAX extends number> = SieveOfEratosthenes<
-  Cast<__PrimeNumbers<MAX>, Sieve>
-> extends infer A
-  ? A
-  : never;
-type __PrimeNumbers<MAX extends number> = SieveOfEratosthenes<
-  GetInitialSieve<NumberToNatural<MAX>>
-> extends infer A
-  ? A
-  : never;
